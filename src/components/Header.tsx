@@ -155,6 +155,7 @@ export default function Header() {
       <Col>
         <Search>
           <motion.svg
+            style={{ cursor: "pointer" }}
             onClick={toggleSearch}
             animate={{ x: isSerachOpen ? -215 : 0 }}
             transition={{ type: "linear" }}
