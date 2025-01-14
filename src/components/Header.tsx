@@ -103,6 +103,7 @@ const logoVariants = {
 
 export default function Header() {
   const homeMatch = useMatch("/");
+  const bigMovieMatch = useMatch("/movies/:movieId");
   const tvMatch = useMatch("/tv");
   const { scrollY } = useScroll();
   const [isSerachOpen, setIsSearchOpen] = useState(false);
@@ -142,7 +143,8 @@ export default function Header() {
         <Items>
           <Item>
             <Link to={"/"}>
-              Home {homeMatch && <Circle layoutId="circle" />}
+              Home{" "}
+              {(homeMatch || bigMovieMatch) && <Circle layoutId="circle" />}
             </Link>
           </Item>
           <Item>
