@@ -1,7 +1,12 @@
 import styled from "styled-components";
 import Slider from "../components/Slider";
 import { useQuery } from "react-query";
-import { getMovies, IGetMovieResult } from "../api";
+import {
+  getMoviesNowPlaying,
+  getMoviesPopular,
+  getMoviesTopRated,
+  IGetMovieResult,
+} from "../api";
 import { makeImagePath } from "../utils";
 
 const Wrapper = styled.div`
@@ -41,9 +46,17 @@ const Overview = styled.p`
 // 스타일드 컴포넌트 영역 끝
 
 export default function Home() {
-  const { data, isLoading } = useQuery<IGetMovieResult>(
+  const { data: nowPlaying, isLoading } = useQuery<IGetMovieResult>(
     ["movies", "nowPlaying"],
-    getMovies
+    getMoviesNowPlaying
+  );
+  const { data: popular } = useQuery<IGetMovieResult>(
+    ["movies", "popular"],
+    getMoviesPopular
+  );
+  const { data: topRated } = useQuery<IGetMovieResult>(
+    ["movies", "topRated"],
+    getMoviesTopRated
   );
 
   // console.log(clickedMovie);
@@ -54,12 +67,14 @@ export default function Home() {
       ) : (
         <>
           <Banner
-            $bgPhoto={makeImagePath(data?.results[0].backdrop_path || "")}
+            $bgPhoto={makeImagePath(nowPlaying?.results[0].backdrop_path || "")}
           >
-            <Title>{data?.results[0].title}</Title>
-            <Overview>{data?.results[0].overview}</Overview>
+            <Title>{nowPlaying?.results[0].title}</Title>
+            <Overview>{nowPlaying?.results[0].overview}</Overview>
           </Banner>
-          <Slider data={data} />
+          <Slider data={nowPlaying} title="Now Playing" />
+          <Slider data={popular} title="Popular" />
+          <Slider data={topRated} title="Top Rated" />
         </>
       )}
     </Wrapper>

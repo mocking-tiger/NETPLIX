@@ -108,7 +108,7 @@ interface IForm {
 
 export default function Header() {
   const homeMatch = useMatch("/");
-  const bigMovieMatch = useMatch("/movies/:movieId");
+  const bigMovieMatch = useMatch("/movies/:title/:movieId");
   const tvMatch = useMatch("/tv");
   const navigate = useNavigate();
   const { scrollY } = useScroll();

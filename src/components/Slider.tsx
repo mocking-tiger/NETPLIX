@@ -9,12 +9,13 @@ import { makeImagePath } from "../utils";
 import { useMatch, useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`
+  margin-bottom: 230px;
   position: relative;
   top: -100px;
 
   .arrow {
     position: absolute;
-    top: 80px;
+    top: 105px;
     left: 10px;
     cursor: pointer;
     transition: all 0.2s linear;
@@ -24,9 +25,13 @@ const Wrapper = styled.div`
     }
   }
 
-  .arrow:last-child {
+  .arrow:nth-of-type(2) {
     right: 10px;
     left: auto;
+  }
+
+  h2 {
+    font-size: 24px;
   }
 `;
 
@@ -105,12 +110,13 @@ const infoVariants = {
 
 interface ISliderProps {
   data: IGetMovieResult | undefined;
+  title: string;
 }
 
-export default function Slider({ data }: ISliderProps) {
+export default function Slider({ data, title }: ISliderProps) {
   const OFFSET = 6;
   const navigate = useNavigate();
-  const bigMovieMatch = useMatch("/movies/:movieId");
+  const bigMovieMatch = useMatch(`/movies/${title}/:movieId`);
   const [index, setIndex] = useState(0);
   const [leaving, setLeaving] = useState(false);
   const [isBack, setIsBack] = useState(false);
@@ -138,7 +144,7 @@ export default function Slider({ data }: ISliderProps) {
   const onOverlayClick = () => navigate("/");
 
   const onBoxClicked = (movieId: number) => {
-    navigate(`/movies/${movieId}`);
+    navigate(`/movies/${title}/${movieId}`);
   };
 
   const clickedMovie =
@@ -155,6 +161,7 @@ export default function Slider({ data }: ISliderProps) {
         // initial={false}
         onExitComplete={toggleLeaving}
       >
+        <h2>{title}</h2>
         <Row
           key={index}
           style={{
@@ -177,7 +184,7 @@ export default function Slider({ data }: ISliderProps) {
                 transition={{ type: "tween" }}
                 $bgPhoto={makeImagePath(movie.backdrop_path, "w500")}
                 onClick={() => onBoxClicked(movie.id)}
-                layoutId={String(movie.id)}
+                layoutId={`${title}-${movie.id}`}
               >
                 <Info variants={infoVariants}>
                   <h4>{movie.title}</h4>
@@ -202,6 +209,7 @@ export default function Slider({ data }: ISliderProps) {
         bigMovieMatch={bigMovieMatch}
         onOverlayClick={onOverlayClick}
         clickedMovie={clickedMovie}
+        title={title}
       />
     </Wrapper>
   );

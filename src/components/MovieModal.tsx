@@ -11,6 +11,7 @@ const Overlay = styled(motion.div)`
   opacity: 0;
   position: fixed;
   top: 0;
+  z-index: 1;
 `;
 
 const MovieModal = styled(motion.div)`
@@ -23,6 +24,7 @@ const MovieModal = styled(motion.div)`
   position: fixed;
   left: 0;
   right: 0;
+  z-index: 1;
 `;
 
 const BigCover = styled.div`
@@ -53,14 +55,17 @@ interface IModalProps {
   bigMovieMatch: PathMatch<"movieId"> | null;
   onOverlayClick: () => void;
   clickedMovie: "" | IMovie | undefined;
+  title: string;
 }
 
 export default function MovieModalComponent({
   bigMovieMatch,
   onOverlayClick,
   clickedMovie,
+  title,
 }: IModalProps) {
-  const { scrollY } = useScroll();
+  const { scrollYProgress } = useScroll();
+  console.log(clickedMovie);
   return (
     <AnimatePresence>
       {bigMovieMatch && (
@@ -71,8 +76,8 @@ export default function MovieModalComponent({
             exit={{ opacity: 0 }}
           />
           <MovieModal
-            style={{ top: scrollY.get() + 100 }}
-            layoutId={bigMovieMatch.params.movieId}
+            style={{ top: scrollYProgress.get() + 100 }}
+            layoutId={`${title}-${bigMovieMatch.params.movieId}`}
           >
             {clickedMovie && (
               <>
@@ -85,7 +90,11 @@ export default function MovieModalComponent({
                   }}
                 />
                 <BigTitle>{clickedMovie.title}</BigTitle>
-                <BigOverview>{clickedMovie.overview}</BigOverview>
+                <BigOverview>
+                  {clickedMovie.overview === ""
+                    ? "**한국어로 개요가 제공되지 않는 작품입니다.**"
+                    : clickedMovie.overview}
+                </BigOverview>
               </>
             )}
           </MovieModal>

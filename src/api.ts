@@ -20,8 +20,20 @@ export interface IGetMovieResult {
   total_results: number;
 }
 
-export function getMovies() {
+export function getMoviesNowPlaying() {
   return fetch(
     `${BASE_PATH}/movie/now_playing?api_key=${API_KEY}&language=ko`
+  ).then((response) => response.json());
+}
+
+export function getMoviesPopular() {
+  return fetch(
+    `${BASE_PATH}/movie/popular?api_key=${API_KEY}&language=ko`
+  ).then((response) => response.json());
+}
+
+export function getMoviesTopRated() {
+  return fetch(
+    `${BASE_PATH}/movie/top_rated?api_key=${API_KEY}&language=ko`
   ).then((response) => response.json());
 }
