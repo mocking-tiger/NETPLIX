@@ -1,8 +1,15 @@
 import Home from "./routes/Home";
 import Tv from "./routes/Tv";
 import Search from "./routes/Search";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+// 할 일
+// 0. 컴포넌트 분리하기 V
+// 1. 주제별 슬라이더
+// 2. TV쇼 화면
+// 3. 상세페이지 디자인 개선
+// 4. 검색 기능(어떤식으로 구현할지?)
 
 function App() {
   return (

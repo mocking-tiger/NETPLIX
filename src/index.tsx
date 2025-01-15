@@ -69,6 +69,18 @@ body {
   color:${(props) => props.theme.white.darker};
   line-height: 1.2;
   background-color: black;
+  ::-webkit-scrollbar {
+  width: 5px; /* 세로 스크롤의 너비 */
+  height: 5px; /* 가로 스크롤의 높이 */
+}
+::-webkit-scrollbar-track {
+  background: #f0f0f0; /* 트랙 배경색 */
+  border-radius: 10px; /* 트랙의 모서리를 둥글게 */
+}
+::-webkit-scrollbar-thumb {
+  background: #888; /* 핸들의 색상 */
+  border-radius: 10px; /* 핸들의 모서리를 둥글게 */
+}
 }
 a {
   text-decoration:none;
