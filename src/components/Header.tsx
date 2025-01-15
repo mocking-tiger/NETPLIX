@@ -123,7 +123,7 @@ export default function Header() {
   };
 
   useMotionValueEvent(scrollY, "change", (value) => {
-    console.log(value);
+    // console.log(value);
     if (value > 100) {
       setIsScrollDown(true);
     } else {

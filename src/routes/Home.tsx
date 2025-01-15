@@ -5,16 +5,21 @@ import {
   getMoviesNowPlaying,
   getMoviesPopular,
   getMoviesTopRated,
+  getMoviesUpcoming,
   IGetMovieResult,
 } from "../api";
 import { makeImagePath } from "../utils";
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   background-color: black;
   overflow-x: hidden;
+
+  div:last-child {
+    margin-bottom: 20px;
+  }
 `;
 
-const Loader = styled.div`
+export const Loader = styled.div`
   height: 20vh;
   text-align: center;
   display: flex;
@@ -22,7 +27,7 @@ const Loader = styled.div`
   align-items: center;
 `;
 
-const Banner = styled.div<{ $bgPhoto: string }>`
+export const Banner = styled.div<{ $bgPhoto: string }>`
   height: 100vh;
   padding: 60px;
   display: flex;
@@ -33,12 +38,12 @@ const Banner = styled.div<{ $bgPhoto: string }>`
   background-size: cover;
 `;
 
-const Title = styled.h2`
+export const Title = styled.h2`
   margin-bottom: 20px;
   font-size: 68px;
 `;
 
-const Overview = styled.p`
+export const Overview = styled.p`
   width: 50%;
   font-size: 36px;
 `;
@@ -50,13 +55,20 @@ export default function Home() {
     ["movies", "nowPlaying"],
     getMoviesNowPlaying
   );
+
   const { data: popular } = useQuery<IGetMovieResult>(
     ["movies", "popular"],
     getMoviesPopular
   );
+
   const { data: topRated } = useQuery<IGetMovieResult>(
     ["movies", "topRated"],
     getMoviesTopRated
+  );
+
+  const { data: Upcoming } = useQuery<IGetMovieResult>(
+    ["movies", "Upcoming"],
+    getMoviesUpcoming
   );
 
   // console.log(clickedMovie);
@@ -75,6 +87,7 @@ export default function Home() {
           <Slider data={nowPlaying} title="Now Playing" />
           <Slider data={popular} title="Popular" />
           <Slider data={topRated} title="Top Rated" />
+          <Slider data={Upcoming} title="Upcoming" />
         </>
       )}
     </Wrapper>

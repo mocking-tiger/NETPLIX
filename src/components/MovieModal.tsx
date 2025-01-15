@@ -65,7 +65,7 @@ export default function MovieModalComponent({
   title,
 }: IModalProps) {
   const { scrollYProgress } = useScroll();
-  console.log(clickedMovie);
+  // console.log(clickedMovie);
   return (
     <AnimatePresence>
       {bigMovieMatch && (
@@ -89,7 +89,7 @@ export default function MovieModalComponent({
                     )})`,
                   }}
                 />
-                <BigTitle>{clickedMovie.title}</BigTitle>
+                <BigTitle>{clickedMovie.title ?? clickedMovie.name}</BigTitle>
                 <BigOverview>
                   {clickedMovie.overview === ""
                     ? "**한국어로 개요가 제공되지 않는 작품입니다.**"

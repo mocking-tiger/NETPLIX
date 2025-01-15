@@ -4,7 +4,7 @@ import RightIcon from "../assets/icon-right.svg";
 import MovieModalComponent from "./MovieModal";
 import { AnimatePresence, motion } from "framer-motion";
 import { MouseEvent, useState } from "react";
-import { IGetMovieResult } from "../api";
+import { IGetMovieResult, IMovie } from "../api";
 import { makeImagePath } from "../utils";
 import { useMatch, useNavigate } from "react-router-dom";
 
@@ -111,12 +111,17 @@ const infoVariants = {
 interface ISliderProps {
   data: IGetMovieResult | undefined;
   title: string;
+  where?: string;
 }
 
-export default function Slider({ data, title }: ISliderProps) {
+export default function Slider({
+  data,
+  title,
+  where = "movies",
+}: ISliderProps) {
   const OFFSET = 6;
   const navigate = useNavigate();
-  const bigMovieMatch = useMatch(`/movies/${title}/:movieId`);
+  const bigMovieMatch = useMatch(`/${where}/${title}/:movieId`);
   const [index, setIndex] = useState(0);
   const [leaving, setLeaving] = useState(false);
   const [isBack, setIsBack] = useState(false);
@@ -141,16 +146,16 @@ export default function Slider({ data, title }: ISliderProps) {
 
   const toggleLeaving = () => setLeaving((prev) => !prev);
 
-  const onOverlayClick = () => navigate("/");
+  const onOverlayClick = () => navigate(where === "tv" ? `/${where}` : "/");
 
   const onBoxClicked = (movieId: number) => {
-    navigate(`/movies/${title}/${movieId}`);
+    navigate(`/${where}/${title}/${movieId}`);
   };
 
   const clickedMovie =
     bigMovieMatch?.params.movieId &&
     data?.results.find(
-      (movie) => String(movie.id) === bigMovieMatch.params.movieId
+      (movie: IMovie) => String(movie.id) === bigMovieMatch.params.movieId
     );
 
   if (!data) return null;
@@ -187,7 +192,7 @@ export default function Slider({ data, title }: ISliderProps) {
                 layoutId={`${title}-${movie.id}`}
               >
                 <Info variants={infoVariants}>
-                  <h4>{movie.title}</h4>
+                  <h4>{movie.name ? movie.name : movie.title}</h4>
                 </Info>
               </Box>
             ))}
