@@ -3,6 +3,7 @@ import Tv from "./routes/Tv";
 import Search from "./routes/Search";
 import Header from "./components/Header";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import FooterComponent from "./components/Footer";
 
 // 할 일
 // 0. 컴포넌트 분리하기 V
@@ -25,6 +26,7 @@ function App() {
         <Route path="/tv/:title/:id" element={<Tv />} />
         <Route path="/search" element={<Search />} />
       </Routes>
+      <FooterComponent />
     </BrowserRouter>
   );
 }

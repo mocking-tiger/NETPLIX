@@ -219,21 +219,3 @@ export default function Slider({
     </Wrapper>
   );
 }
-
-// adult: false;
-// backdrop_path: "/96RT2A47UdzWlUfvIERFyBsLhL2.jpg";
-// id: 209867;
-// name: "장송의 프리렌";
-// original_name: "葬送のフリーレン";
-// overview: "용사 힘멜 일행과 함께 10년에 걸친 모험 끝에 마왕을 물리치고 세계에 평화를 가져온 마법사 프리렌. 천 년을 넘게 사는 엘프인 그녀는 힘멜 일행과 재회를 약속하고 혼자 여행을 떠난다. 그로부터 50년 후 프리렌은 힘멜을 찾아갔지만 50년 전과 달라진 게 없는 그녀에 비해 힘멜은 늙었고 수명이 얼마 남아있지 않았다. 그 후 죽음을 맞이한 힘멜을 보고 지금까지 '인간을 아는' 일을 하지 않았던 것을 후회하고 자신을 반성한 프리렌은 '인간을 알기 위한' 여행을 떠난다. 그 여로에는 다양한 사람들과의 만남, 다양한 사건들이 기다리고 있었는데──.";
-// poster_path: "/mnj30hYDVAbL9BOA0f4HrKubAGF.jpg";
-// vote_average: 8.8;
-
-// adult: false;
-// backdrop_path: "/ie8OSgIHEl6yQiGJ90dsyBWOpQA.jpg";
-// id: 839033;
-// original_title: "The Lord of the Rings: The War of the Rohirrim";
-// overview: "로한의 전설적인 왕 무쇠주먹 ‘헬름’은 공주 ‘헤라’와 자신의 아들 ‘울프’와의 결혼을 요구하는 웨스트마크 영주인 ‘프레카’와 결투를 벌이다 예기치 않게 그를 죽이고 만다. 아버지의 죽음에 격분하여 복수를 다짐하고 사라진 ‘울프’. 어느 날, 그는 무자비한 던랜드인을 이끌고 나타나 로한을 공격한다. ‘헬름’과 그의 아들 ‘할레스’와 ‘하마’, 그리고 기마대 로히림이 공격에 맞서지만 영주들의 배신으로 크게 패배하며 나팔 산성으로 퇴각하게 된다. ‘할레스’와 ‘하마’ 두 왕자를 모두 잃은 ‘헬름’과 ‘헤라’는 ‘울프’와 대규모 던랜드 군대에 의해 나팔 산성에 고립된 상황에서 모두의 목숨을 건 마지막 전투를 준비한다.";
-// poster_path: "/eeN1fRy5UjTwtTQTz1EdVaE5aC.jpg";
-// title: "반지의 제왕: 로히림의 전쟁";
-// vote_average: 6.523;

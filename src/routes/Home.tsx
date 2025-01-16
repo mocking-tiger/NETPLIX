@@ -13,6 +13,7 @@ import { makeImagePath } from "../utils";
 export const Wrapper = styled.div`
   background-color: black;
   overflow-x: hidden;
+  user-select: none;
 
   div:last-child {
     margin-bottom: 20px;
