@@ -57,7 +57,8 @@ const BigTitle = styled.h3`
   position: relative;
   top: -150px;
 
-  span {
+  span:nth-of-type(1),
+  span:nth-of-type(2) {
     font-size: 20px;
     overflow: hidden;
     white-space: nowrap;
@@ -101,7 +102,9 @@ export default function MovieModalComponent({
           <MovieModal
             style={{ top: scrollYProgress.get() + 100 }}
             layoutId={`${title}-${
-              typeof bigMovieMatch !== "string" && bigMovieMatch.params.movieId
+              typeof bigMovieMatch !== "string"
+                ? bigMovieMatch.params.movieId
+                : bigMovieMatch
             }`}
           >
             {clickedMovie && (
@@ -109,7 +112,8 @@ export default function MovieModalComponent({
                 <BigCover
                   style={{
                     backgroundImage: `linear-gradient(to top, black,rgba(0,0,0,0.7)),url(${makeImagePath(
-                      clickedMovie.backdrop_path
+                      clickedMovie.backdrop_path,
+                      "w500"
                     )})`,
                   }}
                 >
@@ -122,7 +126,7 @@ export default function MovieModalComponent({
                   />
                 </BigCover>
                 <BigTitle>
-                  <h6
+                  <span
                     style={{
                       fontSize:
                         (clickedMovie.title ?? clickedMovie.name).length > 15
@@ -136,11 +140,11 @@ export default function MovieModalComponent({
                   >
                     {clickedMovie.title ?? clickedMovie.name}
                     <span> ⭐{clickedMovie.vote_average.toFixed(1)}</span>
-                  </h6>
+                  </span>
                   <span>
-                    {" "}
-                    ({clickedMovie.original_title ?? clickedMovie.original_name}
-                    )
+                    {`(${
+                      clickedMovie.original_title ?? clickedMovie.original_name
+                    })`}
                   </span>
                 </BigTitle>
                 <BigOverview>

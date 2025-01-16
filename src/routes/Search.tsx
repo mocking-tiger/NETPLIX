@@ -1,15 +1,16 @@
 import styled from "styled-components";
+import MovieModalComponent from "../components/MovieModal";
 import { useQuery } from "react-query";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { Loader } from "./Home";
+import { makeImagePath } from "../utils";
+import { MouseEvent, useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import {
   getMovieSearchResults,
   getTvSearchResults,
   IGetMovieResult,
 } from "../api";
-import { Loader } from "./Home";
-import { makeImagePath } from "../utils";
-import { useEffect } from "react";
-import MovieModalComponent from "../components/MovieModal";
 
 const Wrapper = styled.div`
   min-height: calc(100vh - 100px);
@@ -42,7 +43,7 @@ const ResultList = styled.ul`
   flex-wrap: wrap;
 `;
 
-const ResultItem = styled.li`
+const ResultItem = styled(motion.li)`
   width: 250px;
   height: 400px;
   cursor: pointer;
@@ -57,31 +58,52 @@ const ResultItem = styled.li`
   }
   h3 {
     height: 50px;
+    margin-top: 5px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
   }
 `;
 
+const Button = styled.button`
+  margin-right: 10px;
+  background-color: transparent;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  border: none;
+  border-bottom: 2px solid transparent;
+
+  &:hover {
+    border-bottom: 2px solid white;
+    transition: border-bottom 0.3s ease-in-out;
+  }
+`;
+
 // 스타일드 컴포넌트 영역 끝
 
 export default function Search() {
+  const STUFFS_PER_PAGE = 20;
   const [searchParams] = useSearchParams();
   const keyword = searchParams.get("keyword");
   const selectedStuff = searchParams.get("movieId");
   const navigate = useNavigate();
+
   const {
     data: movieResults,
     isLoading,
     refetch: refetchMovie,
   } = useQuery<IGetMovieResult>(["results", "movie"], () =>
-    getMovieSearchResults(keyword ?? "")
+    getMovieSearchResults(keyword ?? "", movieIndex)
   );
 
   const { data: tvResults, refetch: refetchTv } = useQuery<IGetMovieResult>(
     ["results", "tv"],
-    () => getTvSearchResults(keyword ?? "")
+    () => getTvSearchResults(keyword ?? "", tvIndex)
   );
+
+  const [movieIndex, setMovieIndex] = useState(1);
+  const [tvIndex, setTvIndex] = useState(1);
 
   const onOverlayClick = () => navigate(`/search?keyword=${keyword}`);
 
@@ -93,15 +115,42 @@ export default function Search() {
     .concat(tvResults ? tvResults?.results : [])
     .find((stuff) => String(stuff.id) === selectedStuff);
 
+  const setIndex = (event: MouseEvent) => {
+    const target = event.target as HTMLButtonElement;
+    if (movieResults && tvResults) {
+      const maximumMoviePage = Math.ceil(
+        movieResults?.total_results / STUFFS_PER_PAGE
+      );
+      const maximumTvPage = Math.ceil(
+        tvResults?.total_results / STUFFS_PER_PAGE
+      );
+
+      if (target.name === "m-") {
+        setMovieIndex((prev) => (prev === 1 ? 1 : prev - 1));
+      } else if (target.name === "m+") {
+        setMovieIndex((prev) =>
+          prev === maximumMoviePage ? maximumMoviePage : prev + 1
+        );
+      } else if (target.name === "t-") {
+        setTvIndex((prev) => (prev === 1 ? 1 : prev - 1));
+      } else {
+        setTvIndex((prev) =>
+          prev === maximumTvPage ? maximumTvPage : prev + 1
+        );
+      }
+    }
+    // console.log(target.name);
+  };
+
   useEffect(() => {
     if (keyword) {
       refetchMovie();
       refetchTv();
     }
-  }, [keyword, refetchMovie, refetchTv]);
+  }, [keyword, refetchMovie, refetchTv, movieIndex, tvIndex]);
 
-  console.log(movieResults);
-  console.log(tvResults);
+  // console.log(movieResults);
+  // console.log(tvResults);
   return (
     <Wrapper>
       {isLoading ? (
@@ -114,6 +163,7 @@ export default function Search() {
               {movieResults?.results.map((movie) => (
                 <ResultItem
                   key={movie.id}
+                  layoutId={`-${movie.id}`}
                   onClick={() => onBoxClicked(movie.id)}
                 >
                   <div
@@ -127,12 +177,22 @@ export default function Search() {
                 </ResultItem>
               ))}
             </ResultList>
+            <Button name="m-" onClick={setIndex}>
+              {"<< Prev"}
+            </Button>
+            <Button name="m+" onClick={setIndex}>
+              {"Next >>"}
+            </Button>
           </MovieResult>
           <TvResult>
             <h2>TV시리즈 검색결과 {tvResults?.total_results ?? 0}건</h2>
             <ResultList>
               {tvResults?.results.map((show) => (
-                <ResultItem key={show.id} onClick={() => onBoxClicked(show.id)}>
+                <ResultItem
+                  key={show.id}
+                  layoutId={`-${show.id}`}
+                  onClick={() => onBoxClicked(show.id)}
+                >
                   <div
                     style={{
                       backgroundImage: `url(${makeImagePath(
@@ -144,6 +204,12 @@ export default function Search() {
                 </ResultItem>
               ))}
             </ResultList>
+            <Button name="t-" onClick={setIndex}>
+              {"<< Prev"}
+            </Button>
+            <Button name="t+" onClick={setIndex}>
+              {"Next >>"}
+            </Button>
           </TvResult>
         </Results>
       )}

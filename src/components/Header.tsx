@@ -127,6 +127,7 @@ export default function Header() {
     handleSubmit,
     formState: { errors },
     setFocus,
+    setValue,
   } = useForm<IForm>();
   const [isSerachOpen, setIsSearchOpen] = useState(false);
   const [isScrollDown, setIsScrollDown] = useState(false);
@@ -140,6 +141,7 @@ export default function Header() {
 
   const onValid = (data: IForm) => {
     navigate(`/search?keyword=${data.keyword}`);
+    setValue("keyword", "");
   };
 
   useMotionValueEvent(scrollY, "change", (value) => {

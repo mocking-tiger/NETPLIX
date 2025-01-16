@@ -72,14 +72,14 @@ export function getTvAiringToday() {
   ).then((response) => response.json());
 }
 
-export function getMovieSearchResults(keyword: string) {
+export function getMovieSearchResults(keyword: string, page = 1) {
   return fetch(
-    `${BASE_PATH}/search/movie?api_key=${API_KEY}&query=${keyword}&include_adult=true&language=ko&page=1`
+    `${BASE_PATH}/search/movie?api_key=${API_KEY}&query=${keyword}&include_adult=true&language=ko&page=${page}`
   ).then((response) => response.json());
 }
 
-export function getTvSearchResults(keyword: string) {
+export function getTvSearchResults(keyword: string, page = 1) {
   return fetch(
-    `${BASE_PATH}/search/tv?api_key=${API_KEY}&query=${keyword}&include_adult=true&language=ko&page=1`
+    `${BASE_PATH}/search/tv?api_key=${API_KEY}&query=${keyword}&include_adult=true&language=ko&page=${page}`
   ).then((response) => response.json());
 }
