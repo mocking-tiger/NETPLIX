@@ -8,6 +8,9 @@ export interface IMovie {
   poster_path: string;
   title: string;
   name: string;
+  vote_average: number;
+  original_name: string;
+  original_title: string;
 }
 
 export interface IGetMovieResult {

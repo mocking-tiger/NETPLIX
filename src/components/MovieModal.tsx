@@ -29,24 +29,44 @@ const MovieModal = styled(motion.div)`
 
 const BigCover = styled.div`
   width: 100%;
-  height: 400px;
+  height: 500px;
   background-size: cover;
   background-position: center center;
+  position: relative;
+  top: -20px;
+
+  div {
+    position: absolute;
+    top: 30px;
+    left: 20px;
+    width: 250px;
+    height: 350px;
+    background-color: black;
+    background-size: cover;
+    background-position: center center;
+    border-radius: 5px;
+  }
 `;
 
 const BigTitle = styled.h3`
-  padding: 10px;
+  padding: 20px;
   color: ${(props) => props.theme.white.lighter};
   font-size: 46px;
+  display: flex;
+  flex-direction: column;
   position: relative;
-  top: -80px;
+  top: -140px;
+
+  span {
+    font-size: 20px;
+  }
 `;
 
 const BigOverview = styled.p`
   padding: 20px;
   color: ${(props) => props.theme.white.lighter};
   position: relative;
-  top: -80px;
+  top: -140px;
 `;
 
 // 스타일드 컴포넌트 영역 끝
@@ -83,13 +103,30 @@ export default function MovieModalComponent({
               <>
                 <BigCover
                   style={{
-                    backgroundImage: `linear-gradient(to top, black,transparent),url(${makeImagePath(
-                      clickedMovie.backdrop_path,
-                      "w500"
+                    backgroundImage: `linear-gradient(to top, black,rgba(0,0,0,0.7)),url(${makeImagePath(
+                      clickedMovie.backdrop_path
                     )})`,
                   }}
-                />
-                <BigTitle>{clickedMovie.title ?? clickedMovie.name}</BigTitle>
+                >
+                  <div
+                    style={{
+                      backgroundImage: `url(${makeImagePath(
+                        clickedMovie.poster_path
+                      )})`,
+                    }}
+                  />
+                </BigCover>
+                <BigTitle>
+                  <h6>
+                    {clickedMovie.title ?? clickedMovie.name}
+                    <span> ⭐{clickedMovie.vote_average.toFixed(1)}</span>
+                  </h6>
+                  <span>
+                    {" "}
+                    ({clickedMovie.original_title ?? clickedMovie.original_name}
+                    )
+                  </span>
+                </BigTitle>
                 <BigOverview>
                   {clickedMovie.overview === ""
                     ? "**한국어로 개요가 제공되지 않는 작품입니다.**"

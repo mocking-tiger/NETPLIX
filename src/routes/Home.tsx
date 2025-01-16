@@ -41,11 +41,15 @@ export const Banner = styled.div<{ $bgPhoto: string }>`
 export const Title = styled.h2`
   margin-bottom: 20px;
   font-size: 68px;
+  position: relative;
+  bottom: -130px;
 `;
 
 export const Overview = styled.p`
   width: 50%;
-  font-size: 36px;
+  font-size: 24px;
+  position: relative;
+  bottom: -130px;
 `;
 
 // 스타일드 컴포넌트 영역 끝

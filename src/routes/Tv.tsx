@@ -30,7 +30,7 @@ export default function Tv() {
     getTvAiringToday
   );
 
-  console.log(topRated);
+  // console.log(topRated);
   return (
     <Wrapper>
       {isLoading ? (

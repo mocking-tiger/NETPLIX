@@ -110,6 +110,7 @@ export default function Header() {
   const homeMatch = useMatch("/");
   const bigMovieMatch = useMatch("/movies/:title/:movieId");
   const tvMatch = useMatch("/tv");
+  const bigTvMatch = useMatch("/tv/:titld/:showId");
   const navigate = useNavigate();
   const { scrollY } = useScroll();
   const { register, handleSubmit } = useForm<IForm>();
@@ -162,7 +163,7 @@ export default function Header() {
           </Item>
           <Item>
             <Link to={"/tv"}>
-              Tv Shows {tvMatch && <Circle layoutId="circle" />}
+              Tv Shows {(tvMatch || bigTvMatch) && <Circle layoutId="circle" />}
             </Link>
           </Item>
         </Items>
