@@ -14,6 +14,7 @@ const Nav = styled(motion.nav)`
   align-items: center;
   position: fixed;
   top: 0;
+  z-index: 9999;
 `;
 
 const Col = styled.div`
@@ -59,6 +60,14 @@ const Search = styled.form`
 
   svg {
     height: 25px;
+  }
+
+  span {
+    width: 300px;
+    position: absolute;
+    left: -190px;
+    bottom: -30px;
+    color: pink;
   }
 `;
 
@@ -113,11 +122,21 @@ export default function Header() {
   const bigTvMatch = useMatch("/tv/:titld/:showId");
   const navigate = useNavigate();
   const { scrollY } = useScroll();
-  const { register, handleSubmit } = useForm<IForm>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setFocus,
+  } = useForm<IForm>();
   const [isSerachOpen, setIsSearchOpen] = useState(false);
   const [isScrollDown, setIsScrollDown] = useState(false);
 
-  const toggleSearch = () => setIsSearchOpen((prev) => !prev);
+  const toggleSearch = () => {
+    setIsSearchOpen((prev) => !prev);
+    setTimeout(() => {
+      setFocus("keyword");
+    }, 0);
+  };
 
   const onValid = (data: IForm) => {
     navigate(`/search?keyword=${data.keyword}`);
@@ -186,11 +205,15 @@ export default function Header() {
             ></path>
           </motion.svg>
           <Input
-            {...register("keyword", { required: true, minLength: 2 })}
+            {...register("keyword", {
+              required: true,
+              minLength: { value: 2, message: "두 글자 이상 입력해야 합니다." },
+            })}
             transition={{ type: "linear" }}
             animate={{ scaleX: isSerachOpen ? 1 : 0 }}
             placeholder="Search for movie or tv show"
           ></Input>
+          {errors.keyword && <span>{errors.keyword.message}</span>}
         </Search>
       </Col>
     </Nav>
