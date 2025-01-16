@@ -55,10 +55,13 @@ const BigTitle = styled.h3`
   display: flex;
   flex-direction: column;
   position: relative;
-  top: -140px;
+  top: -150px;
 
   span {
     font-size: 20px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 `;
 
@@ -66,13 +69,13 @@ const BigOverview = styled.p`
   padding: 20px;
   color: ${(props) => props.theme.white.lighter};
   position: relative;
-  top: -140px;
+  top: -150px;
 `;
 
 // 스타일드 컴포넌트 영역 끝
 
 interface IModalProps {
-  bigMovieMatch: PathMatch<"movieId"> | null;
+  bigMovieMatch: PathMatch<"movieId"> | string | null;
   onOverlayClick: () => void;
   clickedMovie: "" | IMovie | undefined;
   title: string;
@@ -97,7 +100,9 @@ export default function MovieModalComponent({
           />
           <MovieModal
             style={{ top: scrollYProgress.get() + 100 }}
-            layoutId={`${title}-${bigMovieMatch.params.movieId}`}
+            layoutId={`${title}-${
+              typeof bigMovieMatch !== "string" && bigMovieMatch.params.movieId
+            }`}
           >
             {clickedMovie && (
               <>
@@ -117,7 +122,18 @@ export default function MovieModalComponent({
                   />
                 </BigCover>
                 <BigTitle>
-                  <h6>
+                  <h6
+                    style={{
+                      fontSize:
+                        (clickedMovie.title ?? clickedMovie.name).length > 15
+                          ? "18px"
+                          : "inherit",
+                      paddingTop:
+                        (clickedMovie.title ?? clickedMovie.name).length > 15
+                          ? "30px"
+                          : "inherit",
+                    }}
+                  >
                     {clickedMovie.title ?? clickedMovie.name}
                     <span> ⭐{clickedMovie.vote_average.toFixed(1)}</span>
                   </h6>

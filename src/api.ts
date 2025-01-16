@@ -71,3 +71,15 @@ export function getTvAiringToday() {
     `${BASE_PATH}/tv/airing_today?api_key=${API_KEY}&language=ko`
   ).then((response) => response.json());
 }
+
+export function getMovieSearchResults(keyword: string) {
+  return fetch(
+    `${BASE_PATH}/search/movie?api_key=${API_KEY}&query=${keyword}&include_adult=true&language=ko&page=1`
+  ).then((response) => response.json());
+}
+
+export function getTvSearchResults(keyword: string) {
+  return fetch(
+    `${BASE_PATH}/search/tv?api_key=${API_KEY}&query=${keyword}&include_adult=true&language=ko&page=1`
+  ).then((response) => response.json());
+}
