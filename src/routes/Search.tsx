@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import MovieModalComponent from "../components/MovieModal";
+import DefaultImage from "../assets/netflix-logo.png";
 import { useQuery } from "react-query";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Loader } from "./Home";
@@ -168,9 +169,9 @@ export default function Search() {
                 >
                   <div
                     style={{
-                      backgroundImage: `url(${makeImagePath(
-                        movie.poster_path
-                      )})`,
+                      backgroundImage: movie.poster_path
+                        ? `url(${makeImagePath(movie.poster_path)})`
+                        : `url(${DefaultImage})`,
                     }}
                   />
                   <h3>{movie.title}</h3>
@@ -195,9 +196,9 @@ export default function Search() {
                 >
                   <div
                     style={{
-                      backgroundImage: `url(${makeImagePath(
-                        show.poster_path
-                      )})`,
+                      backgroundImage: show.poster_path
+                        ? `url(${makeImagePath(show.poster_path)})`
+                        : `url(${DefaultImage})`,
                     }}
                   />
                   <h3>{show.name}</h3>

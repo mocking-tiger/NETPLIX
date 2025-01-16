@@ -88,7 +88,7 @@ const boxVariants = {
     scale: 1.3,
     y: -50,
     transition: {
-      delay: 0.5,
+      delay: 0.3,
       duration: 0.1,
       type: "tween",
     },
@@ -99,7 +99,7 @@ const infoVariants = {
   hover: {
     opacity: 1,
     transition: {
-      delay: 0.5,
+      delay: 0.3,
       duration: 0.1,
       type: "tween",
     },

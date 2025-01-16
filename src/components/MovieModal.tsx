@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import DefaultImage from "../assets/netflix-logo.png";
 import { AnimatePresence, motion, useScroll } from "framer-motion";
 import { PathMatch } from "react-router-dom";
 import { IMovie } from "../api";
@@ -119,9 +120,9 @@ export default function MovieModalComponent({
                 >
                   <div
                     style={{
-                      backgroundImage: `url(${makeImagePath(
-                        clickedMovie.poster_path
-                      )})`,
+                      backgroundImage: clickedMovie.poster_path
+                        ? `url(${makeImagePath(clickedMovie.poster_path)})`
+                        : `url(${DefaultImage})`,
                     }}
                   />
                 </BigCover>
@@ -139,7 +140,13 @@ export default function MovieModalComponent({
                     }}
                   >
                     {clickedMovie.title ?? clickedMovie.name}
-                    <span> ⭐{clickedMovie.vote_average.toFixed(1)}</span>
+                    <span>
+                      {" "}
+                      ⭐
+                      {clickedMovie.vote_average !== 0
+                        ? clickedMovie.vote_average.toFixed(1)
+                        : "리뷰정보 없음"}
+                    </span>
                   </span>
                   <span>
                     {`(${
