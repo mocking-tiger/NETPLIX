@@ -69,6 +69,13 @@ body {
   color:${(props) => props.theme.white.darker};
   line-height: 1.2;
   background-color: black;
+
+}
+a {
+  text-decoration:none;
+  color:inherit;
+}
+html{
   ::-webkit-scrollbar {
   width: 5px; /* 세로 스크롤의 너비 */
   height: 5px; /* 가로 스크롤의 높이 */
@@ -81,10 +88,6 @@ body {
   background: #888; /* 핸들의 색상 */
   border-radius: 10px; /* 핸들의 모서리를 둥글게 */
 }
-}
-a {
-  text-decoration:none;
-  color:inherit;
 }
 `;
 

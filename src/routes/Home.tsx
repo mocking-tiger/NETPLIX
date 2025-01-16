@@ -11,6 +11,8 @@ import {
 import { makeImagePath } from "../utils";
 
 export const Wrapper = styled.div`
+  min-height: calc(100vh - 100px);
+  padding-bottom: 100px;
   background-color: black;
   overflow-x: hidden;
   user-select: none;

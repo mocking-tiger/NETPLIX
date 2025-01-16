@@ -1,12 +1,15 @@
 import styled from "styled-components";
 
 const Footer = styled.footer`
+  height: 100px;
   padding: 40px 20px;
   border-top: 1px solid darkgray;
   display: flex;
   justify-content: flex-end;
   gap: 15px;
   user-select: none;
+  position: relative;
+  /* transform: translateY(-100%); */
 
   h6 {
     cursor: pointer;
