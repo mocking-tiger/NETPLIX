@@ -58,9 +58,27 @@ const BigTitle = styled.h3`
   position: relative;
   top: -150px;
 
-  span:nth-of-type(1),
-  span:nth-of-type(2) {
-    font-size: 20px;
+  div {
+    display: flex;
+    align-items: center;
+
+    span:nth-of-type(1) {
+      max-width: 550px;
+      margin-bottom: 5px;
+      display: block;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    span:nth-of-type(2) {
+      margin-left: 10px;
+      font-size: 18px;
+    }
+  }
+
+  span:nth-of-type(1) {
+    font-size: 16px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -68,10 +86,13 @@ const BigTitle = styled.h3`
 `;
 
 const BigOverview = styled.p`
+  height: 230px;
   padding: 20px;
   color: ${(props) => props.theme.white.lighter};
+  overflow-y: auto;
   position: relative;
   top: -150px;
+  line-height: 25px;
 `;
 
 // 스타일드 컴포넌트 영역 끝
@@ -127,28 +148,41 @@ export default function MovieModalComponent({
                   />
                 </BigCover>
                 <BigTitle>
-                  <span
-                    style={{
-                      fontSize:
-                        (clickedMovie.title ?? clickedMovie.name).length > 15
-                          ? "18px"
-                          : "inherit",
-                      paddingTop:
-                        (clickedMovie.title ?? clickedMovie.name).length > 15
-                          ? "30px"
-                          : "inherit",
-                    }}
-                  >
-                    {clickedMovie.title ?? clickedMovie.name}
-                    <span>
-                      {" "}
+                  <div>
+                    <span
+                      title={clickedMovie.title ?? clickedMovie.name}
+                      style={{
+                        fontSize:
+                          (clickedMovie.title ?? clickedMovie.name).length > 20
+                            ? "18px"
+                            : "inherit",
+                        paddingTop:
+                          (clickedMovie.title ?? clickedMovie.name).length > 20
+                            ? "40px"
+                            : "10px",
+                      }}
+                    >
+                      {clickedMovie.title ?? clickedMovie.name}
+                    </span>
+                    <span
+                      style={{
+                        paddingTop:
+                          (clickedMovie.title ?? clickedMovie.name).length > 20
+                            ? "40px"
+                            : "30px",
+                      }}
+                    >
                       ⭐
                       {clickedMovie.vote_average !== 0
                         ? clickedMovie.vote_average.toFixed(1)
                         : "리뷰정보 없음"}
                     </span>
-                  </span>
-                  <span>
+                  </div>
+                  <span
+                    title={
+                      clickedMovie.original_title ?? clickedMovie.original_name
+                    }
+                  >
                     {`(${
                       clickedMovie.original_title ?? clickedMovie.original_name
                     })`}
