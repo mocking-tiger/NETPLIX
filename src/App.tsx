@@ -2,8 +2,8 @@ import Home from "./routes/Home";
 import Tv from "./routes/Tv";
 import Search from "./routes/Search";
 import Header from "./components/Header";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
 import FooterComponent from "./components/Footer";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 // 할 일
 // 0. 컴포넌트 분리하기 V

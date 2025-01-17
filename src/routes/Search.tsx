@@ -167,11 +167,14 @@ export default function Search() {
                   layoutId={`-${movie.id}`}
                   onClick={() => onBoxClicked(movie.id)}
                 >
-                  <div
+                  <motion.div
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 1, duration: 1 }}
                     style={{
                       backgroundImage: movie.poster_path
                         ? `url(${makeImagePath(movie.poster_path)})`
                         : `url(${DefaultImage})`,
+                      opacity: 0,
                     }}
                   />
                   <h3>{movie.title}</h3>
@@ -194,11 +197,14 @@ export default function Search() {
                   layoutId={`-${show.id}`}
                   onClick={() => onBoxClicked(show.id)}
                 >
-                  <div
+                  <motion.div
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 1, duration: 1 }}
                     style={{
                       backgroundImage: show.poster_path
                         ? `url(${makeImagePath(show.poster_path)})`
                         : `url(${DefaultImage})`,
+                      opacity: 0,
                     }}
                   />
                   <h3>{show.name}</h3>
